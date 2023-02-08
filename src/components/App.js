@@ -25,7 +25,19 @@ function App() {
   }
 
   function onDeleteToy(deletedToy) {
-    const updatedToys = toys.map(toy => toy.id !== deletedToy.id)
+    const updatedToys = toys.filter(toy => toy.id !== deletedToy.id)
+    setToys(updatedToys)
+  }
+
+  function onUpdateLikes(updatedToy) {
+    const updatedToys = toys.map(toy => {
+      if (toy.id === updatedToy.id) {
+        return updatedToy
+      } else {
+        return toy
+      }
+    })
+
     setToys(updatedToys)
   }
 
@@ -36,7 +48,7 @@ function App() {
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toys={toys} onDeleteToy={onDeleteToy}/>
+      <ToyContainer toys={toys} onDeleteToy={onDeleteToy} onUpdateLike={onUpdateLikes}/>
     </>
   );
 }
