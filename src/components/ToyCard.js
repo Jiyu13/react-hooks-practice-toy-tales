@@ -1,6 +1,6 @@
 import React from "react";
 
-function ToyCard( { toy, onDeleteToy } ) {
+function ToyCard( { toy, onDeleteToy, onUpdateLikes } ) {
 
   const {id, name, image, likes} = toy
 
@@ -9,6 +9,20 @@ function ToyCard( { toy, onDeleteToy } ) {
     fetch(`http://localhost:3001/toys/${id}`, {method: "DELETE"})
     .then(res => res.json())
     .then(() => onDeleteToy(toy))
+  }
+
+  // PATCH request
+  function handleLikeClick(e) {
+    const updatedLikes = e.target.value
+    fetch(`http://localhost:3001/toys/${id}`, {
+      method: "PATCH",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        likes: updatedLikes
+      })
+    })
+    .then(res => res.json())
+    .then(updatedToy => onUpdateLikes(updatedToy))
   }
 
   return (
@@ -20,7 +34,7 @@ function ToyCard( { toy, onDeleteToy } ) {
         className="toy-avatar"
       />
       <p>{likes} Likes </p>
-      <button className="like-btn">Like {likes}</button>
+      <button className="like-btn" onClick={(handleLikeClick)}>Like {likes}</button>
       <button className="del-btn" onClick={handleDonateClick}>Donate to GoodWill</button>
     </div>
   );
