@@ -19,10 +19,15 @@ function App() {
     setShowForm((showForm) => !showForm);
   }
 
+  function onAddToy(newToy) {
+    setToys([...toys, newToy])
+    console.log(toys)
+  }
+
   return (
     <>
       <Header />
-      {showForm ? <ToyForm /> : null}
+      {showForm ? <ToyForm onAddToy={onAddToy}/> : null}
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
