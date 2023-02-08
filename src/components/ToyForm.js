@@ -36,6 +36,8 @@ function ToyForm( { onAddToy } ) {
     })
     .then(res => res.json())
     .then(newToy => onAddToy(newToy))
+
+    setFormData(initialValue)
   }
 
   
